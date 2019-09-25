@@ -1,0 +1,100 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+}
+
+.item {
+  height: 100px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.item button {
+  background: #f4f4f4;
+  border: none;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  cursor: pointer;
+  font-size: 30px;
+}
+
+.cross {
+  color: blue;
+}
+
+.circle {
+  color: red;
+}
+
+.item button:hover {
+  background: #e4e4e4;
+}
+
+.item:first-of-type button {
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.item:nth-of-type(2) button {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.item:nth-of-type(3) button {
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.item:nth-of-type(4) button {
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.item:nth-of-type(5) button {
+  border: 1px solid black;
+}
+
+.item:nth-of-type(6) button {
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.item:nth-of-type(7) button {
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.item:nth-of-type(8) button {
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.item:nth-of-type(9) button {
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+}
+
+.icon {
+  height: 30px;
+  width: 30px;
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: space-between;
+}
