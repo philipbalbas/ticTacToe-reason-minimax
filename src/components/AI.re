@@ -19,17 +19,28 @@ let getAvailableSpots = board => {
   |> List.filter(value => value != "");
 };
 
-let getBestMoveScore = (scoreMoves, player) => {
-  let initialEval = player == Computer ? ((-1000), "") : (1000, "");
-  scoreMoves->Belt.List.reduce(
-    initialEval, ((bestScore, bestMove), (curScore, curMove)) =>
-    switch (player) {
-    | Computer =>
-      curScore > bestScore ? (curScore, curMove) : (bestScore, bestMove)
-    | Human =>
-      curScore < bestScore ? (curScore, curMove) : (bestScore, bestMove)
-    }
-  );
+let getBestScoreMove = (scoreMoves, player) => {
+  // let initialEval = player == Computer ? ((-1000), "") : (1000, "");
+  // scoreMoves->Belt.List.reduce(
+  //   initialEval, ((bestScore, bestMove), (curScore, curMove)) =>
+  //   switch (player) {
+  //   | Computer =>
+  //     curScore > bestScore ? (curScore, curMove) : (bestScore, bestMove)
+  //   | Human =>
+  //     curScore < bestScore ? (curScore, curMove) : (bestScore, bestMove)
+  //   }
+  // );
+  switch (player) {
+  | Computer =>
+    scoreMoves
+    |> List.sort(((score1, _), (score2, _)) => score1 - score2)
+    |> List.hd
+  | Human =>
+    scoreMoves
+    |> List.sort(((score1, _), (score2, _)) => score1 - score2)
+    |> List.rev
+    |> List.hd
+  };
 };
 
 let rec minimax = (board, player) => {
@@ -42,7 +53,6 @@ let rec minimax = (board, player) => {
     |> List.map(move => {
          let updatedBoard = makeMove(board, move, gameState);
          let (score, _) = minimax(updatedBoard, oppositePlayer(player));
-         //  Js.log2(score, move);
          (score, move);
        });
   };
@@ -51,7 +61,7 @@ let rec minimax = (board, player) => {
   | (Won(Computer), _) => (10, "")
   | (Won(Human), _) => ((-10), "")
   | (Tie, []) => (0, "")
-  | (Turn(_), moves) => moves->getScores->getBestMoveScore(player)
+  | (Turn(_), moves) => moves->getScores->getBestScoreMove(player)
   };
 };
 

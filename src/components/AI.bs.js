@@ -2,7 +2,6 @@
 
 import * as List from "bs-platform/lib/es6/list.js";
 import * as Block from "bs-platform/lib/es6/block.js";
-import * as Belt_List from "bs-platform/lib/es6/belt_List.js";
 import * as Caml_builtin_exceptions from "bs-platform/lib/es6/caml_builtin_exceptions.js";
 import * as Shared$ReactHooksTemplate from "../Shared.bs.js";
 
@@ -21,48 +20,16 @@ function getAvailableSpots(board) {
                       }), board)));
 }
 
-function getBestMoveScore(scoreMoves, player) {
-  var match = player === /* Computer */1;
-  var initialEval = match ? /* tuple */[
-      -1000,
-      ""
-    ] : /* tuple */[
-      1000,
-      ""
-    ];
-  return Belt_List.reduce(scoreMoves, initialEval, (function (param, param$1) {
-                var curMove = param$1[1];
-                var curScore = param$1[0];
-                var bestMove = param[1];
-                var bestScore = param[0];
-                if (player) {
-                  var match = curScore > bestScore;
-                  if (match) {
-                    return /* tuple */[
-                            curScore,
-                            curMove
-                          ];
-                  } else {
-                    return /* tuple */[
-                            bestScore,
-                            bestMove
-                          ];
-                  }
-                } else {
-                  var match$1 = curScore < bestScore;
-                  if (match$1) {
-                    return /* tuple */[
-                            curScore,
-                            curMove
-                          ];
-                  } else {
-                    return /* tuple */[
-                            bestScore,
-                            bestMove
-                          ];
-                  }
-                }
-              }));
+function getBestScoreMove(scoreMoves, player) {
+  if (player) {
+    return List.hd(List.sort((function (param, param$1) {
+                      return param[0] - param$1[0] | 0;
+                    }), scoreMoves));
+  } else {
+    return List.hd(List.rev(List.sort((function (param, param$1) {
+                          return param[0] - param$1[0] | 0;
+                        }), scoreMoves)));
+  }
 }
 
 function minimax(board, player) {
@@ -86,7 +53,7 @@ function minimax(board, player) {
               Caml_builtin_exceptions.match_failure,
               /* tuple */[
                 "AI.re",
-                50,
+                60,
                 2
               ]
             ];
@@ -101,7 +68,7 @@ function minimax(board, player) {
             Caml_builtin_exceptions.match_failure,
             /* tuple */[
               "AI.re",
-              50,
+              60,
               2
             ]
           ];
@@ -119,7 +86,7 @@ function minimax(board, player) {
             ];
     }
   } else {
-    return getBestMoveScore(getScores(avaialableTiles), player);
+    return getBestScoreMove(getScores(avaialableTiles), player);
   }
 }
 
@@ -133,7 +100,7 @@ function getBestMove(board) {
 
 export {
   getAvailableSpots ,
-  getBestMoveScore ,
+  getBestScoreMove ,
   minimax ,
   getBestMove ,
   
