@@ -121,7 +121,7 @@ let make = () => {
     | Won(user) =>
       let wonText =
         switch (user) {
-        | Human => "You beat the computer!"
+        | Human => "You beat the unbeatable!"
         | Computer => "All hail the machine!"
         };
       <>

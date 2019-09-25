@@ -24,10 +24,10 @@ let getBestMoveScore = (scoreMoves, player) => {
   scoreMoves->Belt.List.reduce(
     initialEval, ((bestScore, bestMove), (curScore, curMove)) =>
     switch (player) {
-    | Human =>
-      curScore < bestScore ? (curScore, curMove) : (bestScore, bestMove)
     | Computer =>
       curScore > bestScore ? (curScore, curMove) : (bestScore, bestMove)
+    | Human =>
+      curScore < bestScore ? (curScore, curMove) : (bestScore, bestMove)
     }
   );
 };
@@ -42,19 +42,22 @@ let rec minimax = (board, player) => {
     |> List.map(move => {
          let updatedBoard = makeMove(board, move, gameState);
          let (score, _) = minimax(updatedBoard, oppositePlayer(player));
+         //  Js.log2(score, move);
          (score, move);
        });
   };
 
   switch (gameState, avaialableTiles) {
-  | (Won(Human), _) => ((-10), "")
   | (Won(Computer), _) => (10, "")
+  | (Won(Human), _) => ((-10), "")
   | (Tie, []) => (0, "")
   | (Turn(_), moves) => moves->getScores->getBestMoveScore(player)
   };
 };
 
 let getBestMove = board => {
-  let (_, move) = minimax(board, Computer);
+  let (score, move) = minimax(board, Computer);
+  Js.log("---------Final Score--------");
+  Js.log2(score, move);
   move;
 };

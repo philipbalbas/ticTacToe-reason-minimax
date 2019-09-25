@@ -195,7 +195,7 @@ function Game(Props) {
               })
           }, "Start Game");
   } else if (gameStatus.tag) {
-    var wonText = gameStatus[0] ? "All hail the machine!" : "You beat the computer!";
+    var wonText = gameStatus[0] ? "All hail the machine!" : "You beat the unbeatable!";
     menu = React.createElement(React.Fragment, undefined, React.createElement("div", undefined, wonText), React.createElement("button", {
               onClick: (function (param) {
                   return Curry._1(dispatch, /* Rematch */1);

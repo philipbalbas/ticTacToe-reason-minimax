@@ -86,7 +86,7 @@ function minimax(board, player) {
               Caml_builtin_exceptions.match_failure,
               /* tuple */[
                 "AI.re",
-                49,
+                50,
                 2
               ]
             ];
@@ -101,7 +101,7 @@ function minimax(board, player) {
             Caml_builtin_exceptions.match_failure,
             /* tuple */[
               "AI.re",
-              49,
+              50,
               2
             ]
           ];
@@ -124,7 +124,11 @@ function minimax(board, player) {
 }
 
 function getBestMove(board) {
-  return minimax(board, /* Computer */1)[1];
+  var match = minimax(board, /* Computer */1);
+  var move = match[1];
+  console.log("---------Final Score--------");
+  console.log(match[0], move);
+  return move;
 }
 
 export {
